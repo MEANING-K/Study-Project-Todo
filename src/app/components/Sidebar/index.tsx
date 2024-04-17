@@ -7,9 +7,9 @@ const Box = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: rgb(68, 21, 28);
+  background-color: #0c1425;
   color: white;
-  width: 30%;
+  width: 20%;
   height: 100vh;
 `;
 

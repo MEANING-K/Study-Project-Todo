@@ -8,9 +8,9 @@ const Box = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: aqua;
   width: 100%;
   height: 100vh;
+  background-color: rgb(2, 7, 21);
 `;
 
 export default function MainContainer() {
