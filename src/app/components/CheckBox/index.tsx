@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Checkbox({ text }) {
+/* function Checkbox({ text }) {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
@@ -74,4 +74,35 @@ const StyledInput = styled.input`
 
 const StyledP = styled.p`
   margin-left: 0.5rem;
+` */
+
+const CheckboxBtn = styled.input.attrs({ type: 'checkbox' })`
+  margin-left: 1.5rem;
+  width: 25px;
+  height: 20px;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s;
+
+  &:checked {
+    background-color: aqua;
+  }
 `;
+
+export default function Checkbox() {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleClick = () => {
+    setIsChecked(!isChecked);
+  };
+
+  return (
+    <>
+      <CheckboxBtn checked={isChecked} onClick={handleClick} />
+    </>
+  );
+}

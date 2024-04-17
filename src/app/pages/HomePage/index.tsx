@@ -13,7 +13,7 @@ export function HomePage() {
     <>
       <Helmet>
         <title>Main</title>
-        <meta name="description" content="MEANING To-do Main" />
+        <meta name="description" content="MEANING To-do" />
       </Helmet>
       <Box>
         <Sidebar />
