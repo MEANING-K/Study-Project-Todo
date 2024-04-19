@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Info from '../Info';
 import TodosContainer from '../TodosContainer';
+import New from '../New';
 
 const Box = styled.div`
   align-items: center;
@@ -17,6 +18,7 @@ export default function MainContainer() {
   return (
     <Box>
       <Info />
+      <New />
       <TodosContainer />
     </Box>
   );
