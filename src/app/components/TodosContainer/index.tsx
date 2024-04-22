@@ -13,7 +13,7 @@ export default function TodosContainer({ todos }) {
     <TodosBox>
       {/* todos 배열을 사용하여 각 할 일을 표시 */}
       {todos.map(todo => (
-        <Todo key={todo.id} />
+        <Todo key={todo.id} content={todo.content} />
       ))}
     </TodosBox>
   );

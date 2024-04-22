@@ -65,12 +65,8 @@ export default function TodoInput({
         onKeyPress={e => {
           if (content === '') return;
           if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
-          if (isEditing) {
-            editTodo && editTodo(content);
-          } else {
-            addTodo && addTodo(content);
-            setContent('');
-          }
+          addTodo && addTodo(content);
+          setContent('');
         }}
       />
     </Box>

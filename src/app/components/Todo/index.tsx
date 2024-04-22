@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import TodoInput from '../TodoInput';
 import Checkbox from '../CheckBox';
 
 const Box = styled.div`
@@ -28,15 +27,30 @@ const ButtonGroup = styled.div`
   margin-left: 30px;
 `;
 
+const SharedInputStyles = `
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px;
+  width: 100%;
+`;
+
+const EditInput = styled.input`
+  ${SharedInputStyles}
+`;
+
 const EditButton = styled.button`
   border: none;
   outline: 0;
   width: 50px;
   height: 40px;
   margin-right: 25px;
-  display: flex; /* 버튼 내부 요소를 가로 정렬하기 위해 추가 */
-  align-items: center; /* 버튼 내부 요소를 수직 가운데 정렬하기 위해 추가 */
-  justify-content: center; /* 버튼 내부 요소를 수평 가운데 정렬하기 위해 추가 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
   color: white;
   cursor: pointer;
@@ -48,24 +62,63 @@ const DeleteButton = styled.button`
   width: 50px;
   height: 40px;
   margin-right: 25px;
-  display: flex; /* 버튼 내부 요소를 가로 정렬하기 위해 추가 */
-  align-items: center; /* 버튼 내부 요소를 수직 가운데 정렬하기 위해 추가 */
-  justify-content: center; /* 버튼 내부 요소를 수평 가운데 정렬하기 위해 추가 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
   color: white;
   cursor: pointer;
   margin-bottom: 3px;
 `;
 
-export default function Todo() {
+const Span = styled.div`
+  ${SharedInputStyles}
+  text-align: left;
+`;
+
+export default function Todo({ content }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newContent, setNewContent] = useState(content);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputChange = e => {
+    setNewContent(e.target.value);
+  };
+
+  const handleInputBlur = () => {
+    setIsEditing(false);
+    // 수정된 내용 저장
+    // 여기서는 예시로 console.log로 출력
+    console.log('새로운 내용:', newContent);
+  };
+
+  const handleInputKeyPress = e => {
+    if (e.key === 'Enter') {
+      handleInputBlur();
+    }
+  };
+
   return (
     <Box>
       <CheckInput>
         <Checkbox />
-        <TodoInput />
+        {isEditing ? (
+          <EditInput
+            type="text"
+            value={newContent}
+            onChange={handleInputChange}
+            onBlur={handleInputBlur}
+            onKeyPress={handleInputKeyPress}
+          />
+        ) : (
+          <Span>{newContent}</Span>
+        )}
       </CheckInput>
       <ButtonGroup>
-        <EditButton type="submit">
+        <EditButton type="submit" onClick={handleEditClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24"

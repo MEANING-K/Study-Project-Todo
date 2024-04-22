@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Info from '../Info';
 import TodosContainer from '../TodosContainer';
-import New from '../NewButton';
+import NewButton from '../NewButton';
+import TodoInput from '../TodoInput';
 
 const Box = styled.div`
   align-items: center;
@@ -14,13 +15,28 @@ const Box = styled.div`
   background-color: rgb(2, 7, 21);
 `;
 
+const NewTodoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export default function MainContainer() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<{ id: number; content: string }[]>([]);
 
   return (
     <Box>
       <Info />
-      <New setTodos={setTodos} />
+      <NewTodoContainer>
+        <TodoInput
+          addTodo={content => {
+            if (content.trim() !== '') {
+              setTodos([...todos, { id: todos.length + 1, content }]);
+            }
+          }}
+        />
+        <NewButton setTodos={setTodos} />
+      </NewTodoContainer>
+
       <TodosContainer todos={todos} />
     </Box>
   );
