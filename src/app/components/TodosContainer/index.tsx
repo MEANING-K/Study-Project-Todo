@@ -3,18 +3,18 @@ import React from 'react';
 import styled from 'styled-components';
 import Todo from '../Todo';
 
-const Box = styled.div`
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: rgb(2, 7, 21);
-  color: white;
+const TodosBox = styled.div`
+  /* TodosContainer의 스타일 */
 `;
 
-export default function TodosContainer() {
+// todos props를 받아서 사용하는 컴포넌트
+export default function TodosContainer({ todos }) {
   return (
-    <Box>
-      <Todo />
-    </Box>
+    <TodosBox>
+      {/* todos 배열을 사용하여 각 할 일을 표시 */}
+      {todos.map(todo => (
+        <Todo key={todo.id} />
+      ))}
+    </TodosBox>
   );
 }

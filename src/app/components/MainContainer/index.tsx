@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Info from '../Info';
 import TodosContainer from '../TodosContainer';
@@ -15,11 +15,13 @@ const Box = styled.div`
 `;
 
 export default function MainContainer() {
+  const [todos, setTodos] = useState([]);
+
   return (
     <Box>
       <Info />
-      <New />
-      <TodosContainer />
+      <New setTodos={setTodos} />
+      <TodosContainer todos={todos} />
     </Box>
   );
 }
