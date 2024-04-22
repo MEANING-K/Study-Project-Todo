@@ -78,7 +78,7 @@ const StyledP = styled.p`
 
 const CheckboxBtn = styled.input.attrs({ type: 'checkbox' })`
   margin-left: 1.5rem;
-  width: 25px;
+  width: 20px;
   height: 20px;
   -webkit-appearance: none;
   appearance: none;

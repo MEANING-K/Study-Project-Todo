@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TodoInput from '../TodoInput';
+import Checkbox from '../CheckBox';
 
 const Box = styled.div`
   display: flex;
@@ -14,10 +15,17 @@ const Box = styled.div`
   height: 5rem;
 `;
 
+const CheckInput = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
 const ButtonGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 30px;
 `;
 
 const EditButton = styled.button`
@@ -52,7 +60,10 @@ const DeleteButton = styled.button`
 export default function Todo() {
   return (
     <Box>
-      <TodoInput />
+      <CheckInput>
+        <Checkbox />
+        <TodoInput />
+      </CheckInput>
       <ButtonGroup>
         <EditButton type="submit">
           <svg

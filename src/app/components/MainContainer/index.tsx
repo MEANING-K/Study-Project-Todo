@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Info from '../Info';
 import TodosContainer from '../TodosContainer';
-import New from '../New';
+import New from '../NewButton';
 
 const Box = styled.div`
   align-items: center;

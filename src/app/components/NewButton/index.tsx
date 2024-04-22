@@ -3,14 +3,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import TodosContainer from '../TodosContainer';
 
+const Container = styled.div`
+  display: flex;
+  justify-content: flex-end; /* NewTodoBox를 오른쪽에 위치시키기 위해 추가 */
+`;
+
 const NewTodoBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
   margin: 15px 20px;
   color: white;
   cursor: pointer;
   padding: 10px auto;
+  width: 150px;
 `;
 
 const Text = styled.span`
@@ -31,7 +37,9 @@ export default function New({ setTodos }) {
   };
 
   return (
-    <>
+    <Container>
+      {' '}
+      {/* 오른쪽 정렬을 위한 컨테이너 */}
       <NewTodoBox onClick={handleNewTodo}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +52,6 @@ export default function New({ setTodos }) {
         <Text>New To-do</Text>
       </NewTodoBox>
       <TodosContainer todos={todos} />
-    </>
+    </Container>
   );
 }
