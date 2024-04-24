@@ -36,8 +36,7 @@ export default function MainContainer() {
         />
         <NewButton setTodos={setTodos} />
       </NewTodoContainer>
-
-      <TodosContainer todos={todos} />
+      <TodosContainer todos={todos} setTodos={setTodos} />
     </Box>
   );
 }

@@ -51,7 +51,7 @@ export default function New({ setTodos }) {
         </svg>
         <Text>New To-do</Text>
       </NewTodoBox>
-      <TodosContainer todos={todos} />
+      <TodosContainer todos={todos} setTodos={undefined} />
     </Container>
   );
 }

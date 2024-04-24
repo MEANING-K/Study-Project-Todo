@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -41,12 +40,6 @@ export default function TodoInput({
       setIsEditMode(false);
     }
   }, [isEditing]);
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isEditMode) {
-      e.preventDefault();
-    }
-  };
 
   return (
     <Box isEditing={isEditing}>
