@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import TodosContainer from '../TodosContainer';
 
 const Container = styled.div`
   display: flex;
-  justify-content: flex-end; /* NewTodoBox를 오른쪽에 위치시키기 위해 추가 */
+  justify-content: flex-end;
 `;
 
 const NewTodoBox = styled.div`
@@ -25,21 +23,17 @@ const Text = styled.span`
   margin-left: 6px;
 `;
 
-export default function New({ setTodos }) {
-  const [todos] = useState([]);
+interface NewButtonProps {
+  addTodo?: (content: string) => void;
+}
 
+export default function NewButton({ addTodo }: NewButtonProps) {
   const handleNewTodo = () => {
-    const newTodo = {
-      id: Math.random(),
-      text: '새로운 할 일',
-    };
-    setTodos(prevTodos => [...prevTodos, newTodo]);
+    addTodo && addTodo('새로운 할 일');
   };
 
   return (
     <Container>
-      {' '}
-      {/* 오른쪽 정렬을 위한 컨테이너 */}
       <NewTodoBox onClick={handleNewTodo}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +45,6 @@ export default function New({ setTodos }) {
         </svg>
         <Text>New To-do</Text>
       </NewTodoBox>
-      <TodosContainer todos={todos} setTodos={undefined} />
     </Container>
   );
 }

@@ -1,9 +1,7 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Info from '../Info';
 import TodosContainer from '../TodosContainer';
-import NewButton from '../NewButton';
 import TodoInput from '../TodoInput';
 
 const Box = styled.div`
@@ -34,7 +32,6 @@ export default function MainContainer() {
             }
           }}
         />
-        <NewButton setTodos={setTodos} />
       </NewTodoContainer>
       <TodosContainer todos={todos} setTodos={setTodos} />
     </Box>

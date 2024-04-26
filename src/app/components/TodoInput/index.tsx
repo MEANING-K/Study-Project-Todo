@@ -17,29 +17,26 @@ const Input = styled.input`
   color: white;
 `;
 
+interface TodoInputProps {
+  addTodo?: (content: string) => void;
+  isEditing?: boolean;
+  editContent?: string;
+  editTodo?: (content: string) => void;
+}
+
 export default function TodoInput({
   addTodo,
   isEditing,
   editContent,
-  editModeTodo,
   editTodo,
-}: {
-  addTodo?: (content: string) => void;
-  isEditing?: boolean;
-  editContent?: string;
-  editModeTodo?: () => void;
-  editTodo?: (content: string) => void;
-}) {
+}: TodoInputProps) {
   const [content, setContent] = React.useState<string>(editContent || '');
-  const [isEditMode, setIsEditMode] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (isEditing) {
-      setIsEditMode(true);
-    } else {
-      setIsEditMode(false);
+      setContent(editContent || '');
     }
-  }, [isEditing]);
+  }, [isEditing, editContent]);
 
   return (
     <Box isEditing={isEditing}>
@@ -47,14 +44,8 @@ export default function TodoInput({
         type="text"
         placeholder="할 일을 입력해주세요"
         value={content}
-        onBlur={e => {
-          if (e.currentTarget === e.target) {
-            if (!isEditMode) {
-              editTodo && editTodo(content);
-            }
-          }
-        }}
         onChange={e => setContent(e.target.value)}
+        onBlur={() => editTodo && editTodo(content)}
         onKeyPress={e => {
           if (content === '') return;
           if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
