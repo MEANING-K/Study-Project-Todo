@@ -1,54 +1,23 @@
-// configureStore.ts
-import {
-  configureStore,
-  getDefaultMiddleware,
-  combineReducers,
-  Reducer,
-} from '@reduxjs/toolkit';
-import { createInjectorsEnhancer } from 'redux-injectors';
+// store/configureStore.ts
+
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from './reducers'; // 수정된 import 구문
-import { loadState, saveState } from './localStorage'; // 상태 로드 및 저장 유틸리티 가져오기
+import rootReducer from './reducers'; // rootReducer를 가져옵니다.
+import rootSaga from './rootSage'; // rootSaga를 가져옵니다.
 
-export function configureAppStore() {
-  const reduxSagaMonitorOptions = {};
-  const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
-  const { run: runSaga } = sagaMiddleware;
+// 이전의 코드에서는 로컬 스토리지와 관련된 함수가 사용되었으나, 이번에는 그 부분을 제거했습니다.
 
-  const preloadedState = loadState(); // 로컬 스토리지에서 상태 불러오기
+const sagaMiddleware = createSagaMiddleware();
 
-  const combinedReducers = combineReducers({
-    rootReducer, // 직접 사용
-  });
-
-  const middlewares = [sagaMiddleware];
-
-  const enhancers = [
-    createInjectorsEnhancer({
-      createReducer: (injectedReducers: { [key: string]: Reducer }) => {
-        return combineReducers({
-          ...injectedReducers,
-          rootReducer,
-        });
-      },
-      runSaga,
-    }),
-  ];
-
+export const configureAppStore = () => {
   const store = configureStore({
-    reducer: combinedReducers,
-    middleware: [...getDefaultMiddleware(), ...middlewares],
-    preloadedState, // 불러온 상태로 스토어 초기화
-    enhancers,
-    devTools: process.env.NODE_ENV !== 'production',
+    reducer: rootReducer,
+    middleware: [...getDefaultMiddleware(), sagaMiddleware],
   });
 
-  // 스토어 상태가 변경될 때마다 로컬 스토리지에 저장
-  store.subscribe(() => {
-    const state = store.getState();
-    console.log('스토어 상태가 업데이트 되었습니다:', state);
-    saveState(state);
-  });
+  sagaMiddleware.run(rootSaga);
 
   return store;
-}
+};
+
+export default configureAppStore;

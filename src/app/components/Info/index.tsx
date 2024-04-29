@@ -1,11 +1,11 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { CircularProgressBar } from '@tomickigrzegorz/react-circular-progress-bar';
 import dayjs from 'dayjs';
+import { RootState } from 'store/store'; // 상태 타입 경로 확인 필요
 
 const now = dayjs();
-now.format('YYYY.MM.DD');
 
 const Box = styled.div`
   display: flex;
@@ -27,13 +27,21 @@ const Span = styled.span`
 `;
 
 export default function Info() {
+  const checkboxStatus = useSelector(
+    (state: RootState) => state.checkboxStatus,
+  );
+  const percent =
+    checkboxStatus && checkboxStatus.total > 0
+      ? (checkboxStatus.checked / checkboxStatus.total) * 100
+      : 0;
+
   return (
     <Box>
       <Span>{now.format('YYYY.MM.DD')}</Span>
       <CircularProgressBar
         colorCircle="#0C1425"
         colorSlice="aqua"
-        percent={80}
+        percent={percent}
         fontColor="aqua"
         round={true}
         fontSize="15px"

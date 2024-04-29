@@ -1,38 +1,38 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 import { GlobalStyle } from 'styles/global-styles';
-
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
-import { useTranslation } from 'react-i18next';
 
-export function App() {
-  const { i18n } = useTranslation();
-  return (
-    <BrowserRouter>
-      <Helmet
-        titleTemplate="MEANING TO-DO"
-        defaultTitle="MEANING TO-DO"
-        htmlAttributes={{ lang: i18n.language }}
-      >
-        <meta name="description" content="MEANING TO-DO" />
-      </Helmet>
+import reportWebVitals from 'reportWebVitals';
+import configureAppStore from 'store/configureStore';
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <GlobalStyle />
-    </BrowserRouter>
-  );
-}
+const store = configureAppStore();
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+
+root.render(
+  <Provider store={store}>
+    <HelmetProvider>
+      <React.StrictMode>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+        <GlobalStyle />
+      </React.StrictMode>
+    </HelmetProvider>
+  </Provider>,
+);
+
+reportWebVitals();

@@ -1,4 +1,3 @@
-// reducers.ts
 import { combineReducers } from '@reduxjs/toolkit';
 import * as types from './actionTypes';
 
@@ -10,10 +9,12 @@ export interface Todo {
 
 export interface State {
   todos: Todo[];
+  checkboxStatus: { total: number; checked: number }; // 체크박스 상태 타입 정의
 }
 
 const initialState: State = {
   todos: [],
+  checkboxStatus: { total: 0, checked: 0 },
 };
 
 const rootReducer = (state: State = initialState, action: any) => {
@@ -39,6 +40,11 @@ const rootReducer = (state: State = initialState, action: any) => {
             ? { ...todo, content: action.payload.content }
             : todo,
         ),
+      };
+    case types.UPDATE_CHECKBOX_STATUS:
+      return {
+        ...state,
+        checkboxStatus: action.payload,
       };
     default:
       return state;

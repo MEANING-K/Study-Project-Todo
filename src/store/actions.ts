@@ -15,3 +15,8 @@ export const editTodo = (id: number, content: string) => ({
   type: types.EDIT_TODO,
   payload: { id, content },
 });
+
+export const updateCheckboxStatus = (total, checked) => ({
+  type: types.UPDATE_CHECKBOX_STATUS,
+  payload: { total, checked },
+});

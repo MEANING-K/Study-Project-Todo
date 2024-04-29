@@ -1,49 +1,59 @@
 /* eslint-disable prettier/prettier */
-import { combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import * as types from './actionTypes';
+import checkboxReducer from './checkboxSlice';
 
 export interface Todo {
   id: number;
   content: string;
 }
 
-export interface State {
+export interface RootState {
   todos: Todo[];
+  checkboxStatus: {
+    total: number;
+    checked: number;
+  };
 }
 
-const initialState: State = {
+const initialState: RootState = {
   todos: [],
+  checkboxStatus: {
+    total: 0,
+    checked: 0,
+  },
 };
 
-const todosReducer = (state: State = initialState, action: any) => {
+const todosReducer = (
+  state: RootState['todos'] = initialState.todos,
+  action: any,
+) => {
   switch (action.type) {
     case types.ADD_TODO:
-      return {
+      return [
         ...state,
-        todos: [
-          ...state.todos,
-          { id: state.todos.length + 1, content: action.payload.content },
-        ],
-      };
+        { id: state.length + 1, content: action.payload.content },
+      ];
     case types.DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter(todo => todo.id !== action.payload.id),
-      };
+      return state.filter(todo => todo.id !== action.payload.id);
     case types.EDIT_TODO:
-      return {
-        ...state,
-        todos: state.todos.map(todo =>
-          todo.id === action.payload.id
-            ? { ...todo, content: action.payload.content }
-            : todo,
-        ),
-      };
+      return state.map(todo =>
+        todo.id === action.payload.id
+          ? { ...todo, content: action.payload.content }
+          : todo,
+      );
     default:
       return state;
   }
 };
 
-export default combineReducers({
+const rootReducer = combineReducers<RootState>({
   todos: todosReducer,
+  checkboxStatus: checkboxReducer, // 확실히 정의된 부분
 });
+
+const store = configureStore({
+  reducer: rootReducer,
+});
+
+export default store;

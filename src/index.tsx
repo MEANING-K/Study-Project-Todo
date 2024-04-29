@@ -16,8 +16,6 @@ import { Provider } from 'react-redux';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
-import { App } from 'app';
-
 import { HelmetProvider } from 'react-helmet-async';
 
 import { configureAppStore } from 'store/configureStore';
@@ -26,6 +24,7 @@ import reportWebVitals from 'reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
+import { HomePage } from 'app/pages/HomePage';
 
 const store = configureAppStore();
 const root = ReactDOM.createRoot(
@@ -36,7 +35,7 @@ root.render(
   <Provider store={store}>
     <HelmetProvider>
       <React.StrictMode>
-        <App />
+        <HomePage />
       </React.StrictMode>
     </HelmetProvider>
   </Provider>,
